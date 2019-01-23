@@ -59,13 +59,34 @@
                         </div>
                        </form> 
                       </div>
+
                       <div class="profile_title">
+
                           <div class="col-md-6">
-                          <form action="{{asset('/admin/profile')}}" method="POST" class="form-horizontal form-label-left input_mask">{{ csrf_field() }}
-                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                               <input type="text" class="form-control has-feedback-left" name="name" placeholder="First Name" value="{{ Auth::user()->name}}">
+                          <form name="form1" action="{{asset('/admin/profile')}}" method="POST"  class="form-horizontal form-label-left input_mask">{{ csrf_field() }}
+
+                            <!--Pop up -->
+                            <div class="flash-message">
+                              @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                                @if(Session::has('alert-' . $msg))
+
+                                  <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                                @endif
+                              @endforeach
+                            </div>
+
+
+
+                            <div class="col-xs-12 form-group has-feedback">
+                               <input id="name" type="text" class="form-control has-feedback-left" name="name" placeholder="First Name" value="{{ Auth::user()->name}}" required>
                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
+
+                            <div class="col-xs-12 form-group has-feedback">
+                              <input id="email" type="email" class="form-control has-feedback-left" name="email" placeholder="email" value="{{ Auth::user()->email}}" required>
+                              <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+
                             <!--
                             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                               <input type="text" class="form-control" name="surname" placeholder="Last Name">
@@ -77,7 +98,7 @@
                               <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
                             </div>
                             -->
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit"  class="btn btn-success">Update</button>
                           </form>  
                         </div>
                       </div>

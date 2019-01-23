@@ -40,19 +40,30 @@ class AdminController extends Controller
     	return back()->with('success','You have successfully uploaded image.');
     }
 
+
     public function update_profile(Request $request){
     	$user=Auth::user();
     	$row = new User();
     	$row->id=$user->id;
-
     	$user->name=$request->get('name');
-    	//$row->surname=$request->get('surname');
-    	//$row->mobile=$request->get('mobile');
-    	//$row->address='Default address';
-    	$user->save();
-    	return back()->with('success','You have successfully created admin profile.');
-    	//$admin_profile->save();
+    	$user->email=$request->get('email');
 
+//    	$validatedData = $request->validate([
+//            'name' => 'required',
+//            'email' => 'required|email|unique:users,email',
+//        ]);
+
+    	$user->save();
+        $request->session()->flash('alert-success', 'Profile Updated Successfully!');
+    	return back();
+
+    }
+
+    public function store(Request $request)
+    {
+
+
+        // The email is valid...
     }
 
 }

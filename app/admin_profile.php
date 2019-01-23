@@ -13,5 +13,7 @@ class admin_profile extends Model
     'surname',
     'mobile',
     'address',
+
   ];
 }
+
