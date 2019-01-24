@@ -2,15 +2,15 @@
     <div class="left_col scroll-view">
  
         <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title">Admin Dahboard</a>
+            <a href="index.html" class="site_title">Exam Dahboard</a>
         </div>
  
         <div class="profile"><!--img_2 -->
           
             <div class="profile_pic">
-                <img src="{{ asset('/storage/avatars') }}/{{ $user->avatar }}" alt="..." class="img-circle profile_img">
+                <img src="../public/avatars/{{$user->avatar}}" alt="..." class="img-circle profile_img">
             </div>
-            <!-- {{ $user->avatar }} -->
+
             <div class="profile_info">
                 <span>Welcome,</span>
                 <h2>{{ Auth::user()->name }}</h2>
@@ -25,9 +25,9 @@
                 <ul class="nav side-menu">
                     <li><a ><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{asset('/admin')}}">Admin Home</a></li>
-                            <li><a href="{{asset('/admin/profile')}}">Update Profile</a></li>
-                            <li><a href="{{asset('/admin/change_password')}}">Change Password</a></li>
+                            <li><a href="{{asset('/exam')}}">Exam Home</a></li>
+                            <li><a href="{{asset('/exam/profile')}}">Update Profile</a></li>
+                            <li><a href="{{asset('/exam/profile')}}">Change Password</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-edit"></i> Records <span class="fa fa-chevron-down"></span></a>

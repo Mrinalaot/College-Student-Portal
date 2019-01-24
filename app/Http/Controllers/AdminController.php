@@ -27,7 +27,7 @@ class AdminController extends Controller
     }
 
     // This is to update the avatar in user profile
-    public function update_avatar(Request $request){
+    /*public function update_avatar(Request $request){
     	$request->validate(['avatar'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',]);
     	$user=Auth::user();
     	$avatarName = $user->id.'_avatar.'.request()->avatar->getClientOriginalExtension();
@@ -38,32 +38,40 @@ class AdminController extends Controller
     	$user->save(); // insert query will be fired
     	
     	return back()->with('success','You have successfully uploaded image.');
-    }
+    }*/
 
 
     public function update_profile(Request $request){
     	$user=Auth::user();
-    	$row = new User();
-    	$row->id=$user->id;
-    	$user->name=$request->get('name');
-    	$user->email=$request->get('email');
-
-//    	$validatedData = $request->validate([
-//            'name' => 'required',
-//            'email' => 'required|email|unique:users,email',
-//        ]);
-
-    	$user->save();
+    	$user->name=$request->name;
+        $user->email=$request->email;
+        if($request->avatar != null)
+        {
+            $user->avatar = $request->avatar->getClientOriginalName();
+            $request->file('avatar')->storeAs('avatars', $user->avatar);
+        }
+        $user->save();
         $request->session()->flash('alert-success', 'Profile Updated Successfully!');
     	return back();
 
     }
 
-    public function store(Request $request)
+    public function change_password(Request $request)
     {
-
-
-        // The email is valid...
+        $user=Auth::user();
+       return view('admin.change_password')->with('user',$user);
     }
+
+    public function change_password__(Request $request)
+    {
+        $user=Auth::user();
+        $row = new User();
+        $row->id=$user->id;
+        $user->password=bcrypt($request->get('new_pass'));
+        $user->save();
+        $request->session()->flash('alert-success', 'Password Changed Successfully!');
+        return back();
+    }
+
 
 }

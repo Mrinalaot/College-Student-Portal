@@ -1,5 +1,4 @@
-
-@extends('admin.layout.mainlayout')
+@extends('admission.layout.mainlayout')
 
 @section('content')
               <div class="right_col" role="main">
@@ -46,28 +45,28 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <!-- Current avatar -->
-                          <img class="img-responsive avatar-view" src="{{ asset('/storage/avatars') }}/{{ $user->avatar }}" alt="Avatar" title="Change the avatar">
+                          <img class="img-responsive avatar-view" src="../../storage/app/public/avatars/{{ $user->avatar }}" alt="Avatar" title="Change the avatar">
                         </div>
                       </div>
 
-                      <form id='upload-form1' action="{{ url('/admin/profile') }}" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left">{{ csrf_field() }}
+                      <form id='upload-form1' action="{{asset('/admin/profile')}}" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left">{{ csrf_field() }}
                         <div class="form-group">
-                      
-                        <input type="file" name="avatar" id="avatar" aria-describedby="fileHelp">
-                      
+                        <input type="file" class="form-control-file" name="avatar" id="avatarFile" aria-describedby="fileHelp">
                     <small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>
                     <span class="input-group-btn">
+                      <button type="button" class="btn btn-primary" onclick="document.getElementById('upload-form1').submit();">Upload</button>
                     </span>
                         </div>
-                       
+                       </form> 
                       </div>
 
                       <div class="profile_title">
 
                           <div class="col-md-6">
+                          <form name="form1" action="{{asset('/admission/profile')}}" method="POST"  class="form-horizontal form-label-left input_mask">{{ csrf_field() }}
 
                             <!--Pop up -->
-                            <div class="flash-message" id="popup">
+                            <div class="flash-message">
                               @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                                 @if(Session::has('alert-' . $msg))
 
@@ -75,6 +74,8 @@
                                 @endif
                               @endforeach
                             </div>
+
+
 
                             <div class="col-xs-12 form-group has-feedback">
                                <input id="name" type="text" class="form-control has-feedback-left" name="name" placeholder="First Name" value="{{ Auth::user()->name}}" required>
