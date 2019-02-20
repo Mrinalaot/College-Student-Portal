@@ -302,14 +302,16 @@ function SmartWizard(target, options) {
      */
 
     SmartWizard.prototype.goForward = function(){
-        var nextStepIdx = this.curStepIdx + 1;
-        if (this.steps.length <= nextStepIdx){
-            if (! this.options.cycleSteps){
-                return false;
+        if(nextCallback()) {
+            var nextStepIdx = this.curStepIdx + 1;
+            if (this.steps.length <= nextStepIdx){
+                if (! this.options.cycleSteps){
+                    return false;
+                }
+                nextStepIdx = 0;
             }
-            nextStepIdx = 0;
+            _loadContent(this, nextStepIdx);
         }
-        _loadContent(this, nextStepIdx);
     };
 
     SmartWizard.prototype.goBackward = function(){
@@ -321,6 +323,7 @@ function SmartWizard(target, options) {
             nextStepIdx = this.steps.length - 1;
         }
         _loadContent(this, nextStepIdx);
+        previousCallback();
     };
 
     SmartWizard.prototype.goToStep = function(stepNum){
@@ -443,7 +446,11 @@ $.fn.smartWizard.defaults = {
     noForwardJumping: false,
     onLeaveStep: null, // triggers when leaving a step
     onShowStep: null,  // triggers when showing a step
-    onFinish: null  // triggers when Finish button is clicked
+    onFinish: finishCallback  // triggers when Finish button is clicked
 };
 
+
+
 })(jQuery);
+
+

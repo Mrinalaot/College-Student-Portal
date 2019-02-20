@@ -22,7 +22,7 @@
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>{{ Auth::user()->name }} <small> profile </small></h2>
+                    <h2>{{ Auth::user()->user_name }} <small> profile </small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -77,12 +77,12 @@
                             </div>
 
                             <div class="col-xs-12 form-group has-feedback">
-                               <input id="name" type="text" class="form-control has-feedback-left" name="name" placeholder="First Name" value="{{ Auth::user()->name}}" required>
+                               <input id="name" type="text" class="form-control has-feedback-left" name="user_name" placeholder="User Name" value="{{ Auth::user()->user_name}}" required>
                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
 
                             <div class="col-xs-12 form-group has-feedback">
-                              <input id="email" type="email" class="form-control has-feedback-left" name="email" placeholder="email" value="{{ Auth::user()->email}}" required>
+                               <input id="email" type="email" class="form-control has-feedback-left" name="email" placeholder="email" value="{{ Auth::user()->email}}" required> 
                               <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                             </div>
 

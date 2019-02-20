@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\form_reg;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 //use Illuminate\Support\Facades\Auth;
+///////////////////////////////////////////////////////////////////////////////
+use Illuminate\Http\Request;
+///////////////////////////////////////////////////////////////////////////////
+
 
 class RegisterController extends Controller
 {
@@ -49,8 +54,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+			'form_id' => 'required|string', //Form_id is Unique
+			'reg_code' => 'required|string|unique:users', //Regisration Code is unique
+            'user_name' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -64,10 +71,51 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'form_id'=>$data['form_id'],
+            'reg_code'=>$data['reg_code'],
+            'user_name' => $data['user_name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role' => 'student',
         ]);
     }
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $form_id1 = $request->form_id;
+        $reg_code1 = $request->reg_code;
+
+        $reg_test = substr(strtoupper(md5(strtoupper(strtoupper($form_id1)).'AOT65498546465464uods55klo657ds64f654sd4fsd6fsd'.date('Y'))),-8);
+ 
+
+        // $y = form_reg::where('form_id',$form_id1)->first();
+        //$x = form_reg::where('reg_code',$reg_test)->first();
+        if($form_id1=='0')
+        {
+           $request->session()->flash('alert-danger', 'Please register casefully!! Your activity will be recorded!! ');
+           return redirect()->route('register');
+        }
+
+        else if($reg_test==($reg_code1))
+        {
+            $this->create($request->all());
+            $request->session()->flash('alert-success', 'Registration Successfull... Please Log in');
+            return redirect()->route('login');
+        }
+        else
+        {
+            $request->session()->flash('alert-danger', 'Please Enter Form id and Registration Code Carefully !');
+           return redirect()->route('register'); //->with(['success' => 'Congratulations! your account is now activated.']);
+        }
+    }
+
+
 }

@@ -1,0 +1,141 @@
+/**
+ * Application stylesheet
+ */
+ #headernavigation {
+     width: auto;
+     height: 25px;
+     background-color: #232C69;
+     text-align: right;
+     padding-right: 15px;
+     box-shadow: 0px 0px 25px #000;
+     color: #fff;
+ }
+ #headernavigation a {
+     font-size: 11px;
+     font-weight: bold;
+     color:#fff;
+     display: block;
+     margin-left: 15px;
+     float: right;
+ }
+ #container {
+     padding: 20px;
+ }
+ 
+ .studentdataWrapper {
+     width: 800px;
+     min-height: 400px;
+     background-color: #fff;
+     margin: auto;
+     margin-top: 20px;
+     border-radius: 8px;
+     box-shadow: 0px 0px 25px #ccc;
+     padding: 20px;
+     border: 1px solid #ccc;
+ }
+ .photo {
+     float:left;
+ }
+ .studentdataWrapper h2 {
+    border-bottom: 1px dotted #333333;
+    color: #232C69;
+
+    font-size: 22px;
+    text-transform: uppercase;
+    text-align:right;
+    font-weight: normal;
+ }
+ 
+ .studentdataWrapper h2  span {
+     color: #005580;
+     font-weight: normal;
+     text-transform: capitalize;
+ }
+ .studentdata {
+    float: left;
+    margin-left: 20px;
+    min-height: 100px;
+    width: 468px;
+ }
+ 
+ .slabel {
+     width:160px;
+     text-transform: uppercase;
+         font-weight: bold;
+     text-align: right !important;
+ }
+ 
+ .stnActionArea {
+     width:auto;
+     border-top: 1px dotted #333333;
+     margin-top: 10px;
+     text-align: right;
+     padding-top: 10px;
+ }
+ .studentdata table {
+     margin-bottom: 0;
+ }
+ 
+.profileformtable {
+     width:100%;
+}
+.profileformtable th {
+    background-color: #eee;
+    text-align: center;
+}
+.profileformtable td {
+    padding: 5px;
+}
+.profileformtable td.flabel {
+    font-weight: normal;
+    width: 150px;
+    text-align: right;
+    font-size:14px;
+    padding-top: 9px;
+    padding-right: 20px;
+}
+
+
+
+
+.profileformtable input {
+    border:1px solid #777;
+}
+
+.profileformtable select {
+    border:1px solid #777;
+    background-color: #eee;
+}
+
+.studentdataWrapper table .flabel {
+    padding-top: 5px;
+    font-weight:bold;
+}
+
+.studentdataWrapper table .flabel2 {
+    padding-top: 5px;
+    font-weight:normal;
+}
+
+
+.bigflabel .flabel {
+    width:250px !important;
+}
+
+.profileformtable input .finputerror:focus {
+    border: 1px solid #cc0000;
+}
+.pg_notify {
+    display:none !important;
+}
+
+.ui-jqgrid tr.ui-row-ltr td {
+    font-size: 14px !important;
+    padding: 5px !important;
+}
+#ui-pg-selbox {
+    height:20px !important;
+}
+.modal, .modal.fade.in {
+    top: 20%; /* was 10% */
+}

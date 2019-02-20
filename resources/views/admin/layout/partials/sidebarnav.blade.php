@@ -13,7 +13,7 @@
             <!-- {{ $user->avatar }} -->
             <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>{{ Auth::user()->name }}</h2>
+                <h2>{{ Auth::user()->user_name }}</h2>
             </div>
         </div>
  
@@ -28,6 +28,10 @@
                             <li><a href="{{asset('/admin')}}">Admin Home</a></li>
                             <li><a href="{{asset('/admin/profile')}}">Update Profile</a></li>
                             <li><a href="{{asset('/admin/change_password')}}">Change Password</a></li>
+                            <li><a href="{{asset('/admin/generate_regcode')}}">Generate Registration Code</a></li>
+                            <li><a href="{{asset('/admin/manage_staff')}}">ADD Suff</a></li>
+                            <li><a href="{{asset('/admin/remove_staff')}}">Remove Staff</a></li>
+
                         </ul>
                     </li>
                     <li><a><i class="fa fa-edit"></i> Records <span class="fa fa-chevron-down"></span></a>
@@ -44,19 +48,7 @@
                             <li><a href="typography.html">Student Recodes</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-table"></i> Excel View <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="tables.html">Tables</a></li>
-                            <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="chartjs.html">Student Performance</a></li>
-                            <li><a href="chartjs2.html">Faculty Performance</a></li>
-                            <li><a href="morisjs.html">Placement Performance</a></li>
-                        </ul>
-                    </li>
+                    
                 </ul>
             </div>
             <div class="menu_section">

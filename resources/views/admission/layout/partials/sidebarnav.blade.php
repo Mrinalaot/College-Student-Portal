@@ -2,18 +2,18 @@
     <div class="left_col scroll-view">
  
         <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title">Admin Dahboard</a>
+            <a href="index.html" class="site_title">Admission Dahboard</a>
         </div>
  
         <div class="profile"><!--img_2 -->
           
             <div class="profile_pic">
-                <img src="../public/avatars/{{ $user->avatar }}" alt="..." class="img-circle profile_img">
+                <img src="{{ asset('/storage/avatars') }}/{{ $user->avatar }}" alt="..." class="img-circle profile_img">
             </div>
-
+            <!-- {{ $user->avatar }} -->
             <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>{{ Auth::user()->name }}</h2>
+                <h2>{{ Auth::user()->user_name }}</h2>
             </div>
         </div>
  
@@ -25,59 +25,21 @@
                 <ul class="nav side-menu">
                     <li><a ><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{asset('/admin')}}">Admin Home</a></li>
-                            <li><a href="{{asset('/admin/profile')}}">Update Profile</a></li>
-                            <li><a href="{{asset('/admin/profile')}}">Change Password</a></li>
+                            <li><a href="{{asset('/admission')}}">Admission Home</a></li>
+                            <li><a href="{{asset('/admission/profile')}}">Update Profile</a></li>
+                            <li><a href="{{asset('/admission/change_password')}}">Change Password</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-edit"></i> Records <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="form.html"> View Records </a></li>
-                            <li><a href="form_advanced.html"> Update Records </a></li>
-                            <li><a href="form_validation.html"> Delete Records </a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-desktop"></i> Database <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="general_elements.html">Download Data</a></li>
-                            <li><a href="media_gallery.html">Upload Data</a></li>
-                            <li><a href="typography.html">Student Recodes</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-table"></i> Excel View <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="tables.html">Tables</a></li>
-                            <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="chartjs.html">Student Performance</a></li>
-                            <li><a href="chartjs2.html">Faculty Performance</a></li>
-                            <li><a href="morisjs.html">Placement Performance</a></li>
-                        </ul>
-                    </li>
+                    
                 </ul>
             </div>
             <div class="menu_section">
                 <h3>AOT </h3>
                 <ul class="nav side-menu">
-                    <li><a><i class="fa fa-mortar-board"></i> Exam Department <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-mortar-board"></i> Contact AOT<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="e_commerce.html">View Exam Users</a></li>
-                            <li><a href="e_commerce_backend.html">Edit Exam Users</a></li>
-                            <li><a href="projects.html">View Exam Marks</a></li>
-                            <li><a href="project_detail.html">Edit Exam Marks</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
- 
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-trophy"></i> Placement Department <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="coming_soon.html">View Placement Users</a></li>
-                            <li><a href="plain_page.html">Edit Placement Users</a></li>
-                            <li><a href="page_404.html">View Placement Record</a></li>
-                            <li><a href="page_500.html">Edit Placement Record</a></li>
+                            <li><a href="e_commerce.html">Contact Exam</a></li>
+                            <li><a href="e_commerce_backend.html">Contact Admin</a></li>
  
                         </ul>
                     </li>

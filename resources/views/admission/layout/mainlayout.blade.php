@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    @include('admin.layout.partials.head')
+    @include('admission.layout.partials.head')
   </head>
 
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        @include('admin.layout.partials.sidebarnav')
-       @include('admin.layout.partials.topnav')
+        @include('admission.layout.partials.sidebarnav')
+       @include('admission.layout.partials.topnav')
     
 	     @yield('content')
 
-	     @include('admin.layout.partials.footer')
+	     @include('admission.layout.partials.footer')
 
       </div>
     </div>
 	
-	@include('admin.layout.partials.footer-scripts')
+	@include('admission.layout.partials.footer-scripts')
 
 
   </body>

@@ -8,12 +8,12 @@
         <div class="profile"><!--img_2 -->
           
             <div class="profile_pic">
-                <img src="../public/avatars/{{$user->avatar}}" alt="..." class="img-circle profile_img">
+                <img src="{{ asset('/storage/avatars') }}/{{ $user->avatar }}" alt="..." class="img-circle profile_img">
             </div>
-
+            <!-- {{ $user->avatar }} -->
             <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>{{ Auth::user()->name }}</h2>
+                <h2>{{ Auth::user()->user_name }}</h2>
             </div>
         </div>
  
@@ -27,7 +27,7 @@
                         <ul class="nav child_menu">
                             <li><a href="{{asset('/exam')}}">Exam Home</a></li>
                             <li><a href="{{asset('/exam/profile')}}">Update Profile</a></li>
-                            <li><a href="{{asset('/exam/profile')}}">Change Password</a></li>
+                            <li><a href="{{asset('/exam/change_password')}}">Change Password</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-edit"></i> Records <span class="fa fa-chevron-down"></span></a>

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    @include('admin.layout.partials.head')
+    @include('student.layout.partials.head')
   </head>
 
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        @include('admin.layout.partials.sidebarnav')
-       @include('admin.layout.partials.topnav')
+        @include('student.layout.partials.sidebarnav')
+       @include('student.layout.partials.topnav')
     
 	     @yield('content')
 
-	     @include('admin.layout.partials.footer')
+	     @include('student.layout.partials.footer')
 
       </div>
     </div>
 	
-	@include('admin.layout.partials.footer-scripts')
+	@include('student.layout.partials.footer-scripts')
 
 
   </body>

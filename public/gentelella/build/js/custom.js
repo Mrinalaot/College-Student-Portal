@@ -1785,7 +1785,11 @@ if (typeof NProgress != 'undefined') {
 			if( typeof ($.fn.smartWizard) === 'undefined'){ return; }
 			console.log('init_SmartWizard');
 			
-			$('#wizard').smartWizard();
+			$('#wizard').smartWizard({
+				keyNavigation: false,
+				onShowStep: onShowStepCallBack
+			});
+
 
 			$('#wizard_verticle').smartWizard({
 			  transitionEffect: 'slide'
@@ -1796,7 +1800,12 @@ if (typeof NProgress != 'undefined') {
 			$('.buttonFinish').addClass('btn btn-default');
 			
 		};
-	   
+	   function onShowStepCallBack(obj, context) {
+				setTimeout(function() {
+					window.scrollTo(0, 0);
+			}, 1);
+			//alert("Hi!");
+		 }
 	   
 	  /* VALIDATOR */
 

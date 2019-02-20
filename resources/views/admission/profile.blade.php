@@ -1,3 +1,4 @@
+
 @extends('admission.layout.mainlayout')
 
 @section('content')
@@ -5,12 +6,12 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3> {{ Auth::user()->name }} <small> Profile</small> </h3>
+                <h3> {{ Auth::user()->user_name }} <small> Profile</small> </h3>
               </div>
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <h2>Admin Profile Page</h2>
+                  <h2>admission Profile Page</h2>
                 </div>
               </div>
             </div>
@@ -21,7 +22,7 @@
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>{{ Auth::user()->name }} <small> profile </small></h2>
+                    <h2>{{ Auth::user()->user_name }} <small> profile </small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -45,28 +46,28 @@
                       <div class="profile_img">
                         <div id="crop-avatar">
                           <!-- Current avatar -->
-                          <img class="img-responsive avatar-view" src="../../storage/app/public/avatars/{{ $user->avatar }}" alt="Avatar" title="Change the avatar">
+                          <img class="img-responsive avatar-view" src="{{ asset('/storage/avatars') }}/{{ $user->avatar }}" alt="Avatar" title="Change the avatar">
                         </div>
                       </div>
 
-                      <form id='upload-form1' action="{{asset('/admin/profile')}}" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left">{{ csrf_field() }}
+                      <form id='upload-form1' action="{{ url('/admission/profile') }}" method="post" enctype="multipart/form-data" class="form-horizontal form-label-left">{{ csrf_field() }}
                         <div class="form-group">
-                        <input type="file" class="form-control-file" name="avatar" id="avatarFile" aria-describedby="fileHelp">
+                      
+                        <input type="file" name="avatar" id="avatar" aria-describedby="fileHelp">
+                      
                     <small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary" onclick="document.getElementById('upload-form1').submit();">Upload</button>
                     </span>
                         </div>
-                       </form> 
+                       
                       </div>
 
                       <div class="profile_title">
 
                           <div class="col-md-6">
-                          <form name="form1" action="{{asset('/admission/profile')}}" method="POST"  class="form-horizontal form-label-left input_mask">{{ csrf_field() }}
 
                             <!--Pop up -->
-                            <div class="flash-message">
+                            <div class="flash-message" id="popup">
                               @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                                 @if(Session::has('alert-' . $msg))
 
@@ -75,15 +76,13 @@
                               @endforeach
                             </div>
 
-
-
                             <div class="col-xs-12 form-group has-feedback">
-                               <input id="name" type="text" class="form-control has-feedback-left" name="name" placeholder="First Name" value="{{ Auth::user()->name}}" required>
+                            <input id="name" type="text" class="form-control has-feedback-left" name="user_name" placeholder="First Name" value="{{ Auth::user()->user_name}}" required>
                                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                             </div>
 
                             <div class="col-xs-12 form-group has-feedback">
-                              <input id="email" type="email" class="form-control has-feedback-left" name="email" placeholder="email" value="{{ Auth::user()->email}}" required>
+                           <input id="email" type="email" class="form-control has-feedback-left" name="email" placeholder="email" value="{{ Auth::user()->email}}" required> 
                               <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                             </div>
 

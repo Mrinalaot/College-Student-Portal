@@ -9,12 +9,12 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="../storage/app/public/avatars/{{ Auth::user()->avatar }}" alt="">
-                    {{ Auth::user()->name }}
+                    <img src="{{ asset('/storage/avatars') }}/{{ $user->avatar }}" alt="">
+                    {{ Auth::user()->user_name }}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="{{asset('admin/profile')}}"> Profile</a></li>
+                    <li><a href="{{asset('exam/profile')}}"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>
