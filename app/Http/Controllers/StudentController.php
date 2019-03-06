@@ -111,14 +111,15 @@ class StudentController extends Controller
         {
             $user->avatar = $user->form_id.".jpg";
 
-            //$source = storage_path('avatars/'.$user->avatar);
-            //$d = compress($source_img, $destination_img, 90);
-           // $source = $request->file('avatar')
+            // $source = 'storage/avatars/'.$user->avatar;
+            // $dest = $source;
+            // $info = getimagesize($source);
+            // $d = compress($source, $dest, 50);
 
             $request->file('avatar')->storeAs('avatars', $user->form_id.".jpg");
         }
         $user->save();
-        $request->session()->flash('alert-success', 'Profile Updated Successfully!');
+        $request->session()->flash('alert-success', 'Profile Updated Successfully!'.$d);
         Mail::to($user->email)->send(new MailProfileUpdate($user));
     	return back();
         }
@@ -503,7 +504,7 @@ class StudentController extends Controller
                                    ->with('btechDB',$btechDB);
     }
 
-    function compress($source, $destination, $quality) {
+    public function compress($source, $destination, $quality) {
 
 		$info = getimagesize($source);
 
