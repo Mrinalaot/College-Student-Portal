@@ -113,6 +113,7 @@ class StudentController extends Controller
 
             //$source = storage_path('avatars/'.$user->avatar);
             //$d = compress($source_img, $destination_img, 90);
+           // $source = $request->file('avatar')
 
             $request->file('avatar')->storeAs('avatars', $user->form_id.".jpg");
         }
