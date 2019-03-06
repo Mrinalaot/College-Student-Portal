@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('user_name')->unique();
             $table->string('password');
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();  //mail verificaion
             $table->string('role')->default('student'); // role column
             $table->string('avatar')->default('user.jpg');// for profile_pic column
             $table->rememberToken();

@@ -30,7 +30,7 @@
                             <li><a href="{{asset('/exam/change_password')}}">Change Password</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-edit"></i> Records <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-edit"></i>Student Records <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="form.html"> View Records </a></li>
                             <li><a href="form_advanced.html"> Update Records </a></li>
@@ -50,13 +50,7 @@
                             <li><a href="tables_dynamic.html">Table Dynamic</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="chartjs.html">Student Performance</a></li>
-                            <li><a href="chartjs2.html">Faculty Performance</a></li>
-                            <li><a href="morisjs.html">Placement Performance</a></li>
-                        </ul>
-                    </li>
+        
                 </ul>
             </div>
             <div class="menu_section">

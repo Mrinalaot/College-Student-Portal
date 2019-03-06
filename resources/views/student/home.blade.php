@@ -9,11 +9,11 @@ function nextCallback() {
 	
   if({{ $studentDB->status }} == "0" || {{ $edit }} == "1")
   {
-   // alert(document.getElementById("edit").value);
+    //alert("{{ $edit }}");
     var id = '#form' + step;
     var path = $(id)[0].action;
    // alert(id+" "+path);
-    var formData = new FormData($(id)[0]); // added
+    var formData = new FormData($(id)[0]); // added for image data
     
     $(id).submit(function(e){
         e.preventDefault();
@@ -28,10 +28,8 @@ function nextCallback() {
              contentType : false,
              processData : false,
              
-
             success: function(data) {
-                alert("Data Saved Successfully !");
-                alert("{{ $edit }}");
+                //alert("Data Saved Successfully !");
             },
             error: function(x, e) {
                 alert(x.status+" "+e);
@@ -72,19 +70,44 @@ function previousCallback() {
 
 function finishCallback() {
     //alert("Finished Clicked");
-    nextCallback();
-    alert("returning from finish");
+    if(document.getElementById('agree').checked==true)
+    {
+    step = 1; //Overriding step for finish (1 - 5 all form submitted)
+
+    nextCallback(); 
+    nextCallback(); 
+    nextCallback(); 
+    nextCallback(); 
+    nextCallback(); 
+    // alert("returning from finish");
     setTimeout("location.reload(true)",1000);  //reloading same page
+    //window.open("{{ url('student/print_view') }}");
+    //location.reload(true);
     window.open("{{ url('student/print_view') }}");
-    
+    }
+    else
+        alert('Please agree to the Terms & Condition');
 }
 
 function fun(exam_type)
 {
-    if(exam_type=="jelet" || exam_type=='open')
-        document.getElementById('is_lateral').style.display='block';
+    if(exam_type=="jelet" || exam_type=='open' ||exam_type=="jeck")
+    {
+        //document.getElementById('is_lateral').disabled = true  ;
+        document.getElementById('is_lateral').options[2].selected = true;
+        // document.getElementById('dip').style.visibility = 'hidden';
+        // document.getElementById('grad').style.visibility = 'hidden';
+        // document.getElementById('btek').style.visibility = 'hidden';
+    }
     else
-        document.getElementById('is_lateral').style.display='none';
+    {
+        //document.getElementById('is_lateral').disabled = true;
+        document.getElementById('is_lateral').options[1].selected = true;
+        // document.getElementById('dip').style.visibility = 'visible';
+        // document.getElementById('grad').style.visibility = 'visible';
+        // document.getElementById('btek').style.visibility = 'visible';
+    }
+
 }
 
 function form_edit()
@@ -107,8 +130,14 @@ function form_edit()
 }
 
 function form_topnav(newstep){
-    alert("newstep");
-  step = newstep;
+    
+    if(step>newstep)
+    {
+      alert("newstep");
+      step = newstep;
+    }
+    else
+     alert("Can't modify");
 }
 </script>
 
@@ -329,8 +358,8 @@ input[type=text]{
                                                         <td colspan="2">
                                                             <select name="is_lateral" id="is_lateral"  class="form-control">
                                                                 <option value="{{ $studentDB->is_lateral }}" selected>{{ $studentDB->is_lateral }}</option>
-                                                                <option value="no" >No</option>
-                                                                <option value="yes">Yes</option>
+                                                                <option id="no" value="no" >No</option>
+                                                                <option id="yes" value="yes">Yes</option>
                                                             </select>
                                                         </td>
                                                     </div>
@@ -535,12 +564,12 @@ input[type=text]{
                                                     <td>Matriculation/SSC </td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="ssc_school_name" value="{{ $academicDB->ssc_school_name }}" id="ssc_school_name" class="form-control">
+                                                            <input type="text" name="ssc_school_name" value="{{ $academicDB->ssc_school_name }}" id="ssc_school_name" class="form-control" required>
                                                         </td>
                                                     </div>
                                                     <div class="form-group">
                                                         <td>
-                                                            <select name="ssc_medium" id="ssc_medium" class="form-control">
+                                                            <select name="ssc_medium" id="ssc_medium" class="form-control" required>
                                                                 <option value="{{ $academicDB->ssc_medium }}" selected>{{ $academicDB->ssc_medium }}</option>
                                                                 <option value="English" >English</option>
                                                                 <option value="Bengali">Bengali</option>
@@ -551,7 +580,7 @@ input[type=text]{
                                                     </div>
                                                     <div class="form-group">
                                                         <td>
-                                                            <select name="ssc_division" id="ssc_division" class="form-control">
+                                                            <select name="ssc_division" id="ssc_division" class="form-control" required>
                                                                 <option value="{{ $academicDB->ssc_division }}" selected>{{ $academicDB->ssc_division }}<option>
                                                                 <option value="I" >I</option>
                                                                 <option value="II">II</option>
@@ -562,12 +591,12 @@ input[type=text]{
                                                     </div>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="number" name="ssc_percentage" value="{{ $academicDB->ssc_percentage }}" id="ssc_percentage" class="form-control">
+                                                            <input type="number" name="ssc_percentage" value="{{ $academicDB->ssc_percentage }}" id="ssc_percentage" class="form-control" required>
                                                         </td>
                                                     </div>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="ssc_board" id="ssc_board" value="{{ $academicDB->ssc_board }}" class="form-control">
+                                                            <input type="text" name="ssc_board" id="ssc_board" value="{{ $academicDB->ssc_board }}" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -611,7 +640,7 @@ input[type=text]{
                                                         </td>
                                                     </div>
                                                 </tr>
-                                                <tr>
+                                                <tr id="dip">
                                                     <div class="form-group">
                                                         <td>
                                                         Diploma
@@ -619,7 +648,7 @@ input[type=text]{
                                                     </div>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="diploma_college_name" value="{{ $academicDB->diploma_college_name }}" id="diploma_college_name" class="form-control">
+                                                            <input type="text" name="diploma_college_name" value="{{ $academicDB->diploma_college_name }}" id="diploma_college_name" placeholder="(If Applicable)" class="form-control">
                                                         </td>
                                                     </div>
                                                     <div class="form-group">
@@ -655,7 +684,7 @@ input[type=text]{
                                                         </td>
                                                     </div>
                                                 </tr>
-                                                <tr>
+                                                <tr id="grad">
                                                         <div class="form-group">
                                                                 <td>
                                                                     Graduation
@@ -663,7 +692,7 @@ input[type=text]{
                                                             </div>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="grad_college_name" value="{{ $academicDB->grad_college_name }}" id="grad_college_name" class="form-control">
+                                                            <input type="text" name="grad_college_name" value="{{ $academicDB->grad_college_name }}" id="grad_college_name" placeholder="(If Applicable)" class="form-control">
                                                         </td>
                                                     </div>
                                                     <div class="form-group">
@@ -699,7 +728,7 @@ input[type=text]{
                                                         </td>
                                                     </div>
                                                 </tr>
-                                                <tr>
+                                                <tr id="btek">
                                                     <div class="form-group">
                                                         <td>
                                                             B.Tech
@@ -707,7 +736,7 @@ input[type=text]{
                                                         </div>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="btech_college_name" value="{{ $academicDB->btech_college_name }}" id="btech_college_name" class="form-control">
+                                                            <input type="text" name="btech_college_name" value="{{ $academicDB->btech_college_name }}" id="btech_college_name" placeholder="(If Applicable)" class="form-control">
                                                         </td>
                                                     </div>
                                                     <div class="form-group">
@@ -1381,7 +1410,7 @@ input[type=text]{
                                                     <td>Permanent Address</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="permanent_add" value="{{$studentDB->permanent_add}}" id="permanent_add" class="form-control">
+                                                            <input type="text" name="permanent_add" value="{{$studentDB->permanent_add}}" id="permanent_add" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1389,7 +1418,7 @@ input[type=text]{
                                                     <td>Present Address</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="present_add" value="{{$studentDB->present_add}}" id="present_add" class="form-control">
+                                                            <input type="text" name="present_add" value="{{$studentDB->present_add}}" id="present_add" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1398,7 +1427,7 @@ input[type=text]{
                                                     <td>Present City</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="present_city" value="{{$studentDB->present_city}}" id="present_city" class="form-control">
+                                                            <input type="text" name="present_city" value="{{$studentDB->present_city}}" id="present_city" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1406,7 +1435,7 @@ input[type=text]{
                                                     <td>Pin No</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="pin_no" value="{{$studentDB->pin_no}}" id="pin_no" class="form-control">
+                                                            <input type="text" name="pin_no" value="{{$studentDB->pin_no}}" id="pin_no" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1423,7 +1452,7 @@ input[type=text]{
                                                     <td>Guardian's Mobile No 1</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="number" name="guardian_1_contact" value="{{$studentDB->guardian_1_contact}}" id="guardian_1_contact" class="form-control">
+                                                            <input type="number" name="guardian_1_contact" value="{{$studentDB->guardian_1_contact}}" id="guardian_1_contact" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1439,7 +1468,7 @@ input[type=text]{
                                                     <td>Student's Mobile No</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="number" name="stu_mobile1_no" value="{{$studentDB->stu_mobile1_no}}" id="stu_mobile1_no" class="form-control">
+                                                            <input type="number" name="stu_mobile1_no" value="{{$studentDB->stu_mobile1_no}}" id="stu_mobile1_no" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1456,7 +1485,7 @@ input[type=text]{
                                                     <td>Email ID</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="email" name="alt_mail_id" value="{{$studentDB->alt_mail_id}}" id="alt_mail_id" class="form-control">
+                                                            <input type="email" name="alt_mail_id" value="{{$studentDB->alt_mail_id}}" id="alt_mail_id" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1465,7 +1494,7 @@ input[type=text]{
                                                     <td>AOTmail ID</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="email" name="aot_mail_id" value="{{$studentDB->aot_mail_id}}" id="aot_mail_id" class="form-control">
+                                                            <input type="email" name="aot_mail_id" value="{{$studentDB->aot_mail_id}}" id="aot_mail_id" class="form-control" placeholder="If generated by AOT">
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1495,7 +1524,7 @@ input[type=text]{
                                                     <td>Annual Family Income</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="number" name="family_income"  value="{{$studentDB->family_income}}" id="family_income" class="form-control">
+                                                            <input type="number" name="family_income"  value="{{$studentDB->family_income}}" id="family_income" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1511,7 +1540,7 @@ input[type=text]{
                                                     <td>Aadhaar Number</td>
                                                     <div class="form-group">
                                                         <td>
-                                                            <input type="text" name="aadhar_no" value="{{$studentDB->aadhar_no}}"  id="aadhar_no" class="form-control">
+                                                            <input type="text" name="aadhar_no" value="{{$studentDB->aadhar_no}}"  id="aadhar_no" class="form-control" required>
                                                         </td>
                                                     </div>
                                                 </tr>
@@ -1604,7 +1633,7 @@ input[type=text]{
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Upload Photo X</td>
+                                                    <td>Upload Photo </td>
                                                     <td>
                                                     <div class="form-group">
                                                         
@@ -1632,7 +1661,7 @@ input[type=text]{
                                                 <tr>
                                                 <div class="form-group">
                                                         <td >
-                                                            <input type="checkbox" name="agree" id="agree" value="agree">
+                                                            <input type="checkbox" name="agree" id="agree" value="agree" >
                                                         </td>
                                                 </div>
                                                     <td>I do hereby affirm and declare that the above information are true and correct to the best of my knowledge and belief and nothing has been cancelled there from. I also know that in the event of wrong information my candidature may liable to be cancelled.</td>

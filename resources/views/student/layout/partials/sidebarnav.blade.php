@@ -25,37 +25,27 @@
                 <ul class="nav side-menu">
                     <li><a ><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{ asset('/student')}}"    >Student Home</a></li>
+                            <li><a href="{{ asset('/student')}}"> Student Home</a></li>
                             <li><a href="{{ asset('/student/profile')}}">Update Profile</a></li>
                             <li><a href="{{asset('/student/change_password')}}">Change Password</a></li>
                             <li><a href="{{asset('/student/print_view')}}">Print View</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-edit"></i> Records <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-edit"></i> Request for update <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="form.html"> View Records </a></li>
-                            <li><a href="form_advanced.html"> Update Records </a></li>
-                            <li><a href="form_validation.html"> Delete Records </a></li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-desktop"></i> Database <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                            <li><a href="general_elements.html">Download Data</a></li>
-                            <li><a href="media_gallery.html">Upload Data</a></li>
-                            <li><a href="typography.html">Student Recodes</a></li>
+                            <li><a href="form_advanced.html"> Validate Form </a></li>
+                            <li><a href="form_validation.html"> fix a meeting for validation </a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-table"></i> Excel View <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="tables.html">Tables</a></li>
-                            <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                            <li><a href="tables.html">SSC HS Marks</a></li>
+                            <li><a href="tables_dynamic.html">Semester Marks</a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-bar-chart-o"></i> Performence <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="chartjs.html">Student Performance</a></li>
-                            <li><a href="chartjs2.html">Faculty Performance</a></li>
-                            <li><a href="morisjs.html">Placement Performance</a></li>
+                            <li><a href="chartjs.html">My Performance</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -65,24 +55,20 @@
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-mortar-board"></i> Exam Department <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="e_commerce.html">View Exam Users</a></li>
-                            <li><a href="e_commerce_backend.html">Edit Exam Users</a></li>
-                            <li><a href="projects.html">View Exam Marks</a></li>
-                            <li><a href="project_detail.html">Edit Exam Marks</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="e_commerce.html">Contact</a></li>
  
                         </ul>
                     </li>
                     <li><a><i class="fa fa-trophy"></i> Placement Department <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="coming_soon.html">View Placement Users</a></li>
-                            <li><a href="plain_page.html">Edit Placement Users</a></li>
-                            <li><a href="page_404.html">View Placement Record</a></li>
-                            <li><a href="page_500.html">Edit Placement Record</a></li>
+                            <li><a href="coming_soon.html">Contact </a></li>
  
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-laptop"></i> Extra Features <span class="label label-success pull-right">Coming Soon</span></a></li>
+                    <li><a><i class="fa fa-laptop"></i> Extra Features <span class="label label-success pull-right">Coming Soon</span></a>
+                    <ul class="nav child_menu">
+                            <li><a href="coming_soon.html">Keep patients </a></li>
+                    </li>
                 </ul>
             </div>
  

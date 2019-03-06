@@ -2,7 +2,8 @@
 @extends('student.layout.mainlayout')
 
 @section('content')
-              <div class="right_col" role="main">
+
+          <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
@@ -58,6 +59,7 @@
                     <small id="fileHelp" class="form-text text-muted">Please upload a valid image file. Size of image should not be more than 2MB.</small>
                     <span class="input-group-btn">
                     </span>
+                       <button type="button" onclick="sendImage()" class="btn btn-success">Edit Image</button>
                         </div>
                        
                       </div>

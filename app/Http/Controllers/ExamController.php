@@ -8,6 +8,11 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Storage;
+//////////////////////////////
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailProfileUpdate;
+use App\Mail\MailChangePassword;
+////////////////////////////////
 
 
 class ExamController extends Controller
@@ -35,6 +40,7 @@ class ExamController extends Controller
         }
         $user->save();
         $request->session()->flash('alert-success', 'Profile Updated Successfully!');
+        Mail::to($user->email)->send(new MailProfileUpdate($user));
     	return back();
         }
         catch(QueryException $e)
@@ -62,6 +68,7 @@ class ExamController extends Controller
             $user->password = Hash::make($request->new_pass);
             $user->save();
             $request->session()->flash('alert-success', 'Password Changed Successfully!');
+            Mail::to($user->email)->send(new MailChangePassword($user));
             return back();
         }
         else

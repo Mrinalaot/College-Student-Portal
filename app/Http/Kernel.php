@@ -62,5 +62,7 @@ class Kernel extends HttpKernel
         'exam' => '\App\Http\Middleware\Exam',
         'placement' => '\App\Http\Middleware\Placement',
         'student' => '\App\Http\Middleware\Student',
+		'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class, //Added for Email
+		'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class, //Added for Email
     ];
 }

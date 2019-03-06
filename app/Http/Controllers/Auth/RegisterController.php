@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Auth;
 use App\User;
 use App\form_reg;
 use App\Http\Controllers\Controller;
@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 //use Illuminate\Support\Facades\Auth;
 ///////////////////////////////////////////////////////////////////////////////
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -34,6 +35,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+   
 
     /**
      * Create a new controller instance.
@@ -77,6 +79,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+       
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,9 +98,6 @@ class RegisterController extends Controller
 
         $reg_test = substr(strtoupper(md5(strtoupper(strtoupper($form_id1)).'AOT65498546465464uods55klo657ds64f654sd4fsd6fsd'.date('Y'))),-8);
  
-
-        // $y = form_reg::where('form_id',$form_id1)->first();
-        //$x = form_reg::where('reg_code',$reg_test)->first();
         if($form_id1=='0')
         {
            $request->session()->flash('alert-danger', 'Please register casefully!! Your activity will be recorded!! ');
@@ -106,9 +106,18 @@ class RegisterController extends Controller
 
         else if($reg_test==($reg_code1))
         {
-            $this->create($request->all());
-            $request->session()->flash('alert-success', 'Registration Successfull... Please Log in');
-            return redirect()->route('login');
+            // $this->create($request->all());
+            // $request->session()->flash('alert-success', 'Registration Successfull... Please Log in');
+            // return redirect()->route('login');
+
+        //    $this->create($request->all());
+        //     $request->session()->flash('alert-success', 'Registration Successfull... Please Log in');
+        //     return redirect('/home');
+           
+
+            event(new Registered($user = $this->create($request->all())));
+            return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
         }
         else
         {
@@ -116,6 +125,5 @@ class RegisterController extends Controller
            return redirect()->route('register'); //->with(['success' => 'Congratulations! your account is now activated.']);
         }
     }
-
 
 }

@@ -29,8 +29,9 @@
                             <li><a href="{{asset('/admin/profile')}}">Update Profile</a></li>
                             <li><a href="{{asset('/admin/change_password')}}">Change Password</a></li>
                             <li><a href="{{asset('/admin/generate_regcode')}}">Generate Registration Code</a></li>
-                            <li><a href="{{asset('/admin/manage_staff')}}">ADD Suff</a></li>
-                            <li><a href="{{asset('/admin/remove_staff')}}">Remove Staff</a></li>
+                            <li><a href="{{asset('/admin/manage_staff')}}">ADD User</a></li>
+                            <li><a href="{{asset('/admin/remove_staff')}}">Remove User</a></li>
+                            <li><a href="{{asset('/admin/sendmail')}}">Send Mail</a></li>
 
                         </ul>
                     </li>
@@ -41,7 +42,7 @@
                             <li><a href="form_validation.html"> Delete Records </a></li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-desktop"></i> Database <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-desktop"></i> Records <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="general_elements.html">Download Data</a></li>
                             <li><a href="media_gallery.html">Upload Data</a></li>

@@ -15,8 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes(['verify' => true]); //Mail Authentication
+
+Route::get('/home', 'HomeController@index')->name('home');  //Added midd
 
 Route::get('/admin', 'AdminController@index')->middleware('auth','admin');
 Route::get('/admin/profile', 'AdminController@profile')->middleware('auth','admin');
@@ -29,6 +30,7 @@ Route::get('/admin/manage_staff', 'AdminController@manage_staff')->middleware('a
 Route::post('/admin/manage_staff', 'AdminController@manage_staff__');
 Route::get('/admin/remove_staff', 'AdminController@remove_staff')->middleware('auth','admin');
 Route::post('/admin/remove_staff', 'AdminController@remove_staff__');
+Route::get('/admin/sendmail', 'AdminController@sendmail')->middleware('auth','admin');
 
 
 Route::get('/admission', 'AdmissionController@index')->middleware('auth','admission');

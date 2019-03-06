@@ -10,7 +10,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\QueryException;
 use Auth;
 use Storage;
-use App\placement_profile;
+
+///////////////////////////////////////
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailProfileUpdate;
+use App\Mail\MailChangePassword;
+/////////////////////////////////////
+
+
 class PlacementController extends Controller
 {
     //
@@ -42,6 +49,7 @@ class PlacementController extends Controller
         }
         $user->save();
         $request->session()->flash('alert-success', 'Profile Updated Successfully!');
+        Mail::to($user->email)->send(new MailProfileUpdate($user));
     	return back();
           }
        catch(QueryException $e)
@@ -69,6 +77,7 @@ class PlacementController extends Controller
             $user->password = Hash::make($request->new_pass);
             $user->save();
             $request->session()->flash('alert-success', 'Password Changed Successfully!');
+            Mail::to($user->email)->send(new MailChangePassword($user));
             return back();
         }
         else

@@ -17,6 +17,12 @@ use App\Year_gap_db;
 use Auth;
 use Storage;
 
+///////////////////////////////////////
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailProfileUpdate;
+use App\Mail\MailChangePassword;
+use App\Mail\MailRegistrationFinish;
+//////////////////////////////////////
 
 class StudentController extends Controller
 {
@@ -76,24 +82,15 @@ class StudentController extends Controller
             $btechDB->reg_code = $user->reg_code;
             $btechDB->save();
         }
-
-        //if($studentDB->status == "0")
-        //{
+        
         return view('student.home')->with('user',$user)
                                    ->with('studentDB',$studentDB)
                                    ->with('sscDB',$sscDB)
                                    ->with('academicDB',$academicDB)
                                    ->with('yeargapDB',$yeargapDB)
                                    ->with('btechDB',$btechDB)->withEdit($edit) ;
-        // }
-        // else{
-        //     return view('student.home')->with('user',$user)
-        //                         ->with('studentDB',$studentDB)
-        //                         ->with('sscDB',$sscDB)
-        //                         ->with('academicDB',$academicDB)
-        //                         ->with('yeargapDB',$yeargapDB)
-        //                         ->with('btechDB',$btechDB)->withEdit($edit) ;
-        // }
+
+    
      }
 
 
@@ -113,10 +110,15 @@ class StudentController extends Controller
         if($request->avatar != null)
         {
             $user->avatar = $user->form_id.".jpg";
+
+            //$source = storage_path('avatars/'.$user->avatar);
+            //$d = compress($source_img, $destination_img, 90);
+
             $request->file('avatar')->storeAs('avatars', $user->form_id.".jpg");
         }
         $user->save();
         $request->session()->flash('alert-success', 'Profile Updated Successfully!');
+        Mail::to($user->email)->send(new MailProfileUpdate($user));
     	return back();
         }
         catch(QueryException $e)
@@ -144,6 +146,7 @@ class StudentController extends Controller
             $user->password = Hash::make($request->new_pass);
             $user->save();
             $request->session()->flash('alert-success', 'Password Changed Successfully!');
+            Mail::to($user->email)->send(new MailChangePassword($user));
             return back();
         }
         else
@@ -416,6 +419,9 @@ class StudentController extends Controller
             $s->alt_mail_id         = $request->alt_mail_id;
 
             $s->save();
+        Mail::to($user->email)->send(new MailRegistrationFinish($user));
+        $request->session()->flash('alert-success', 'Data Saved Successfully !');
+        return back();
            
 
     }
@@ -453,11 +459,14 @@ class StudentController extends Controller
         {
             $user->avatar = $user->form_id.".jpg";
             $request->file('avatar')->storeAs('avatars', $user->form_id.".jpg");
+            
             $user->save();
         }  
-
         $s->save();
              
+        // Mail::to($user->email)->send(new MailRegistrationFinish($user));
+        // $request->session()->flash('alert-success', 'Data Saved Successfully !');
+        // return back();
     }
 
 
@@ -492,5 +501,23 @@ class StudentController extends Controller
                                    ->with('yeargapDB',$yeargapDB)
                                    ->with('btechDB',$btechDB);
     }
+
+    function compress($source, $destination, $quality) {
+
+		$info = getimagesize($source);
+
+		if ($info['mime'] == 'image/jpeg') 
+			$image = imagecreatefromjpeg($source);
+
+		elseif ($info['mime'] == 'image/gif') 
+			$image = imagecreatefromgif($source);
+
+		elseif ($info['mime'] == 'image/png') 
+			$image = imagecreatefrompng($source);
+
+		imagejpeg($image, $destination, $quality);
+
+		return $destination;
+	}
 
 }

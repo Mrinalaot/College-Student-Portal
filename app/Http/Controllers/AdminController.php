@@ -8,9 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+/////////////////////////////////////////
+use App\Mail\SendMailable;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailProfileUpdate;
+use App\Mail\MailChangePassword;
+use App\Mail\MailAdminAddUser;
+////////////////////////////////////////
 use Auth;
 use Storage;
 use App\admin_profile;
+
 class AdminController extends Controller
 {
     //
@@ -18,16 +26,20 @@ class AdminController extends Controller
     	$user=Auth::user();
     	//$admin_profile=DB::table('admin_profiles')->where('user_id','$user->id')->first();
     	return view('admin.home')->with('user',$user);
-    	//->with('admin_profile',$admin_profile);
+   
     }
 
     public function profile(){
-    	$user=Auth::user();
-    	//$admin_profile=DB::table('admin_profiles')->where('user_id',$user->id)->first();
-    	return view('admin.profile')->with('user',$user); //->with('admin_profile',$admin_profile);
-    	//return view('admin.profile',compact('user',$user));
+        $user=Auth::user();
+        
+    	return view('admin.profile')->with('user',$user); 
     }
 
+    public function sendmail(){
+        $user=Auth::user();
+        Mail::to('rupam0915@gmail.com')->send(new SendMailable($user));
+        return "<h1>Mail sent</h1>";
+    }
 
 
     public function update_profile(Request $request){
@@ -43,6 +55,8 @@ class AdminController extends Controller
         }
         $user->save();
         $request->session()->flash('alert-success', 'Profile Updated Successfully!');
+        //Sending mail
+        Mail::to($user->email)->send(new MailProfileUpdate($user));
     	return back();
         }
        catch(QueryException $e)
@@ -70,6 +84,8 @@ class AdminController extends Controller
             $user->password = Hash::make($request->new_pass);
             $user->save();
             $request->session()->flash('alert-success', 'Password Changed Successfully!');
+            //sending mail
+            Mail::to($user->email)->send(new MailChangePassword($user));
             return back();
         }
         else
@@ -90,9 +106,7 @@ class AdminController extends Controller
     public function generate_regcode__(Request $request)
     {
         $user=Auth::user();
-       // $form_id = $request->form_id;
-
-        // $code = substr(strtoupper(md5(strtoupper(strtoupper(trim($form_id)). 'AOT65498546465464uods55klo657ds64f654sd4fsd6fsd' . date('Y')))),-8);
+     
         $i=0;
         $batches=explode(',',$_POST['form_id']);
         
@@ -141,10 +155,6 @@ class AdminController extends Controller
         $user=Auth::user();
         $u1 = new user();
 
-        // $test = User::where('user_name',$request->user_name)->first();
-
-        // if($test == null)
-        // {
         try
         {
         $u1->user_name = $request->user_name;
@@ -156,6 +166,8 @@ class AdminController extends Controller
         $u1->save();
 
         $request->session()->flash('alert-success', 'Staff Added successfuly !');
+        //sending email to the New User
+        Mail::to($request->email)->send(new MailAdminAddUser($u1,$request->password));
         return back();
         }
         catch(QueryException $e)
@@ -163,7 +175,7 @@ class AdminController extends Controller
            $ec = $e->errorInfo[1];
            if($ec == '1062')
            {
-            $request->session()->flash('alert-warning', 'Sorry! Username is already Existing, Choose another UserName and Try Again');
+            $request->session()->flash('alert-warning', 'Sorry! Credential is already Existing, Choose another UserName/Email and Try Again');
             return back();
            }
         }

@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Hash;
 use Auth;
 use Storage;
 use App\Student_db;
+///////////////////////////////
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MailProfileUpdate;
+use App\Mail\MailChangePassword;
+////////////////////////////////
 
 class AdmissionController extends Controller
 {
@@ -33,8 +38,7 @@ class AdmissionController extends Controller
     public function profile(){
     	$user=Auth::user();
     	//$admission_profile=DB::table('admission_profiles')->where('user_id',$user->id)->first();
-    	return view('admission.profile')->with('user',$user); //->with('admission_profile',$admission_profile);
-    	//return view('admission.profile',compact('user',$user));
+    	return view('admission.profile')->with('user',$user); 
     }
 
 
@@ -52,6 +56,7 @@ class AdmissionController extends Controller
         }
         $user->save();
         $request->session()->flash('alert-success', 'Profile Updated Successfully!');
+        Mail::to($user->email)->send(new MailProfileUpdate($user));
     	return back();
         }
         catch(QueryException $e)
@@ -79,6 +84,7 @@ class AdmissionController extends Controller
             $user->password = Hash::make($request->new_pass);
             $user->save();
             $request->session()->flash('alert-success', 'Password Changed Successfully!');
+            Mail::to($user->email)->send(new MailChangePassword($user));
             return back();
         }
         else
